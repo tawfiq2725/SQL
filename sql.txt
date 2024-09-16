@@ -1,0 +1,167 @@
+
+SQL
+------
+SQL - SQL (Structured Query Language) is a standard programming language used for managing and manipulating relational databases. 
+
+
+database
+---------
+A database is an organized collection of data that is stored and managed in a way that allows easy access, retrieval, and manipulation. 
+
+
+DBMS
+-----
+A DBMS (Database Management System) is software that enables users to create, manage, and manipulate databases. It provides an interface between the users (or applications) and the database, ensuring that data is stored, retrieved, and modified efficiently and securely.
+
+
+RDBMS
+------
+An RDBMS (Relational Database Management System) is a specific type of DBMS that stores data in a relational model, where data is organized into tables (rows and columns). These tables are related to each other using keys (primary and foreign keys), which help establish connections between the different data points.
+
+
+When to Use SQL (Relational Databases):
+---------------------------------------
+Relational databases are ideal for situations where data structure, consistency, and integrity are critical. Some web-scale applications benefit from using SQL databases, especially if they need strong relational data models.
+(e.g., financial systems, relational data).
+
+
+When to Use NoSQL (Non-Relational Databases):
+---------------------------------------------
+NoSQL databases are ideal for applications that require high scalability, flexibility, and performance with unstructured or semi-structured data. They are built to scale horizontally, handling massive amounts of data across distributed systems.
+(e.g., social networks, content delivery, big data).
+
+
+1. Aggregation in PostgreSQL:
+-----------------------------
+Aggregation functions are used to perform a calculation on a set of values and return a single value. These are commonly used with the GROUP BY clause to summarize data.
+
+Common Aggregation Functions:
+-----------------------------
+COUNT(): Counts the number of rows.
+SUM(): Adds up the values in a column.
+AVG(): Returns the average value.
+MIN(): Returns the smallest value.
+MAX(): Returns the largest value.
+
+
+2. Subqueries in PostgreSQL:
+----------------------------
+A subquery is a query inside another query. It can be used in various clauses like SELECT, WHERE, FROM, and more. Subqueries allow you to retrieve intermediate data for the outer query.
+
+Types of Subqueries:
+--------------------
+Scalar Subquery: Returns a single value.
+Correlated Subquery: Refers to the outer query and is executed once for each row of the outer query.
+IN/EXISTS Subquery: Used to check if a value exists in a subquery result.
+
+
+3. Window Functions in PostgreSQL:
+-----------------------------------
+Window functions perform calculations across a set of table rows related to the current row, but they do not collapse the result into a single row (like aggregation does). They are useful for performing operations like running totals, ranking, or moving averages.
+
+Key Window Functions:
+---------------------
+ROW_NUMBER(): Assigns a unique number to each row in the result set.
+RANK(): Assigns a rank to each row based on a specific order.
+LAG() and LEAD(): Access data from preceding or following rows.
+SUM() (as a window function): Can be used for running totals.
+
+
+Sample Queries
+
+1. postgres=# CREATE DATABASE employee;
+(Creating a database)
+
+2.\l - List of all databases
+
+3.\c - Connect the databse -- \c dbname
+
+
+-Create a table without constraints-
+
+4. CREATE TABLE details(
+employee(# id INT,
+employee(# Name VARCHAR(50),
+employee(# Age INT,
+employee(# Email VARCHAR(50),
+employee(# Gender VARCHAR(10),
+employee(# DOB DATE );
+
+5. \d List of tables
+
+          List of relations
+ Schema |  Name   | Type  |  Owner
+--------+---------+-------+----------
+ public | details | table | postgres
+(1 row)
+
+
+
+6. \d table_name - to view the table
+
+employee=# \d details
+                     
+ Column |         Type          | Collation | Nullable | Default
+--------+-----------------------+-----------+----------+---------
+ id     | integer               |           |          |
+ name   | character varying(50) |           |          |
+ age    | integer               |           |          |
+ email  | character varying(50) |           |          |
+ gender | character varying(10) |           |          |
+ dob    | date                  |           |          |
+
+
+drop table
+-----------
+employee=# DROP TABLE details;
+DROP TABLE
+
+-Create a table with constraints-
+---------------------------------
+employee=# CREATE TABLE details(
+employee(# Id BIGSERIAL NOT NULL PRIMARY KEY,
+employee(# first_name VARCHAR(50) NOT NULL,
+employee(# last_name VARCHAR(50) NOT NULL,
+employee(# Age INT NOT NULL,
+employee(# Email VARCHAR(50) NOT NULL ,
+employee(# Gender VARCHAR(50) NOT NULL );
+CREATE TABLE
+
+Output
+------
+-----------------------------------------------------------                               
+   Column   |         Type          | Collation | Nullable |               Default
+------------+-----------------------+-----------+----------+-------------------------------------
+ id         | bigint                |           | not null | nextval('details_id_seq'::regclass)
+ first_name | character varying(50) |           | not null |
+ last_name  | character varying(50) |           | not null |
+ age        | integer               |           | not null |
+ email      | character varying(50) |           | not null |
+ gender     | character varying(50) |           | not null |
+Indexes:
+    "details_pkey" PRIMARY KEY, btree (id)
+
+
+Insert values
+--------------
+
+employee=# INSERT INTO details (first_name , last_name , age , email , gender)
+employee-# VALUES ('Tawfiq' , 'Sirajudeen' , 21 , 'tawfiqsiraj003003@gmail.com' , 'Male');
+INSERT 0 1
+employee=# INSERT INTO details (first_name , last_name , age , email , gender)
+employee-# VALUES ('Hasina' , 'Hasina' , 24 , 'hasina@gmail.com' , 'Female');
+INSERT 0 1
+
+
+To View the values
+-------------------
+
+employee=# SELECT * FROM details;
+
+ id | first_name | last_name  | age |            email            | gender
+----+------------+------------+-----+-----------------------------+--------
+  1 | Tawfiq     | Sirajudeen |  21 | tawfiqsiraj003003@gmail.com | Male
+  2 | Hasina     | Hasina     |  24 | hasina@gmail.com            | Female
+(2 rows)
+
+
