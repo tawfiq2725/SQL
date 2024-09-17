@@ -1,0 +1,255 @@
+How to sort the datas
+---------------------
+
+BEFORE
+------
+
+employee=# SELECT * FROM details;
+ id  | first_name |       last_name       | age |               email               |   gender
+-----+------------+-----------------------+-----+-----------------------------------+-------------
+   1 | Tawfiq     | Sirajudeen            |  21 | tawfiqsiraj003003@gmail.com       | Male
+   2 | Hasina     | Hasina                |  24 | hasina@gmail.com                  | Female
+   3 | Thaddeus   | Beale                 |  13 | tbeale0@nymag.com                 | Male
+   4 | King       | Smedley               |  72 | ksmedley1@sun.com                 | Male
+   5 | Odell      | Youens                |  41 | oyouens2@uiuc.edu                 | Male
+   6 | Manya      | Cuncliffe             |   6 | mcuncliffe3@jugem.jp              | Female
+   7 | Courtnay   | Lowless               |  34 | clowless4@usa.gov                 | Genderqueer
+   8 | Minta      | Mattingley            |  69 | mmattingley5@infoseek.co.jp       | Female
+   9 | Maury      | Spottiswood           |  95 | mspottiswood6@com.com             | Male
+  10 | Federico   | Ferie                 |  98 | fferie7@loc.gov                   | Male
+  11 | Skylar     | Coats                 |   9 | scoats8@theatlantic.com           | Bigender
+  12 | Nefen      | Morffew               |  90 | nmorffew9@liveinternet.ru         | Male
+  13 | Poppy      | Farquarson            |  67 | pfarquarsona@msn.com              | Female
+  14 | Prudence   | Mack                  |  63 | pmackb@scribd.com                 | Female
+  15 | Eunice     | Duffil                |  66 | eduffilc@msn.com                  | Female
+  16 | Gene       | Castagna              |   4 | gcastagnad@statcounter.com        | Female
+  17 | Blane      | Lyall                 |  50 | blyalle@nasa.gov                  | Male
+  18 | Jolyn      | Fowles                |  29 | jfowlesf@etsy.com                 | Female
+  19 | Morry      | Furley                |  37 | mfurleyg@ycombinator.com          | Male
+  20 | Faina      | Greedy                |  90 | fgreedyh@washingtonpost.com       | Female
+
+
+AFTER SORT BY Age
+-----------------
+
+employee=# SELECT * FROM details ORDER BY age ASC;
+ id  | first_name |       last_name       | age |               email               |   gender
+-----+------------+-----------------------+-----+-----------------------------------+-------------
+  58 | Nettie     | Weeden                |   2 | nweeden1j@clickbank.net           | Female
+  69 | Cherlyn    | Culwen                |   2 | cculwen1u@drupal.org              | Female
+  29 | Stephan    | Hookes                |   2 | shookesq@devhub.com               | Male
+  16 | Gene       | Castagna              |   4 | gcastagnad@statcounter.com        | Female
+  85 | Bianca     | Smorthwaite           |   5 | bsmorthwaite2a@oaic.gov.au        | Female
+   6 | Manya      | Cuncliffe             |   6 | mcuncliffe3@jugem.jp              | Female
+  70 | Imelda     | Pattullo              |   8 | ipattullo1v@tinypic.com           | Female
+  92 | Kalindi    | Durdan                |   8 | kdurdan2h@techcrunch.com          | Female
+  11 | Skylar     | Coats                 |   9 | scoats8@theatlantic.com           | Bigender
+  60 | Giorgi     | Launder               |  10 | glaunder1l@smugmug.com            | Male
+   3 | Thaddeus   | Beale                 |  13 | tbeale0@nymag.com                 | Male
+  47 | Joyann     | Scudder               |  14 | jscudder18@deviantart.com         | Female
+  62 | Rochella   | Drabble               |  15 | rdrabble1n@unc.edu                | Female
+  82 | Fenelia    | Suche                 |  16 | fsuche27@ask.com                  | Genderqueer
+  22 | Melisse    | Decort                |  17 | mdecortj@huffingtonpost.com       | Female
+  84 | Ilyse      | McPhaden              |  17 | imcphaden29@mashable.com          | Female
+  65 | Darnall    | Peeke                 |  18 | dpeeke1q@wp.com                   | Male
+  98 | Jolee      | Loines                |  19 | jloines2n@dailymail.co.uk         | Female
+  90 | Torry      | Labadini              |  20 | tlabadini2f@sun.com               | Male
+  63 | Lura       | Kinloch               |  21 | lkinloch1o@jigsy.com              | Female
+   1 | Tawfiq     | Sirajudeen            |  21 | tawfiqsiraj003003@gmail.com       | Male
+  48 | Allene     | Woollhead             |  21 | awoollhead19@adobe.com            | Female
+
+
+
+employee=# SELECT first_name,age FROM details ORDER BY age ASC;
+ first_name | age
+------------+-----
+ Nettie     |   2
+ Cherlyn    |   2
+ Stephan    |   2
+ Gene       |   4
+ Bianca     |   5
+ Manya      |   6
+ Imelda     |   8
+ Kalindi    |   8
+ Skylar     |   9
+ Giorgi     |  10
+ Thaddeus   |  13
+ Joyann     |  14
+ Rochella   |  15
+ Fenelia    |  16
+ Melisse    |  17
+ Ilyse      |  17
+ Darnall    |  18
+ Jolee      |  19
+ Torry      |  20
+ Lura       |  21
+ Tawfiq     |  21
+ Allene     |  21
+ Benyamin   |  23
+ Hasina     |  24
+ Eliot      |  24
+ Caldwell   |  26
+ Tabina     |  27
+ Had        |  28
+ Kenon      |  28
+ Iver       |  28
+ Jolyn      |  29
+ Maureene   |  29
+
+
+DISTINCT
+--------
+In SQL, the DISTINCT keyword is used to return only unique (distinct) values in the result set, eliminating any duplicate rows. It is often used with the SELECT statement when you want to avoid repeated or redundant data.
+
+employee=# SELECT DISTINCT age FROM details ORDER BY age;
+ age
+-----
+   2
+   4
+   5
+   6
+   8
+   9
+  10
+  13
+  14
+  15
+  16
+  17
+  18
+  19
+  20
+  21
+  23
+  24
+  26
+  27
+  28
+  29
+  30
+  31
+  34
+  35
+  36
+  37
+  38
+  41
+  42
+  43
+
+WHERE
+-----
+In SQL, the WHERE clause is used to filter records in a query, allowing you to specify conditions that must be met for rows to be included in the result set. It is commonly used with SELECT, UPDATE, DELETE, and INSERT INTO statements.
+
+
+employee=# SELECT * FROM details WHERE gender='Female';
+ id  | first_name |       last_name       | age |               email               | gender
+-----+------------+-----------------------+-----+-----------------------------------+--------
+   2 | Hasina     | Hasina                |  24 | hasina@gmail.com                  | Female
+   6 | Manya      | Cuncliffe             |   6 | mcuncliffe3@jugem.jp              | Female
+   8 | Minta      | Mattingley            |  69 | mmattingley5@infoseek.co.jp       | Female
+  13 | Poppy      | Farquarson            |  67 | pfarquarsona@msn.com              | Female
+  14 | Prudence   | Mack                  |  63 | pmackb@scribd.com                 | Female
+  15 | Eunice     | Duffil                |  66 | eduffilc@msn.com                  | Female
+  16 | Gene       | Castagna              |   4 | gcastagnad@statcounter.com        | Female
+  18 | Jolyn      | Fowles                |  29 | jfowlesf@etsy.com                 | Female
+  20 | Faina      | Greedy                |  90 | fgreedyh@washingtonpost.com       | Female
+  22 | Melisse    | Decort                |  17 | mdecortj@huffingtonpost.com       | Female
+  28 | Analiese   | Landeaux              |  97 | alandeauxp@latimes.com            | Female
+  30 | Ellynn     | Goaks                 |  54 | egoaksr@behance.net               | Female
+  34 | Hyacinthie | Larraway              |  31 | hlarrawayv@vistaprint.com         | Female
+  35 | Giustina   | Linn                  |  44 | glinnw@nature.com                 | Female
+  38 | Gustie     | Ielden                |  42 | gieldenz@liveinternet.ru          | Female
+  40 | Hilary     | Jeandot               |  78 | hjeandot11@bbc.co.uk              | Female
+  41 | Marguerite | Burchett              |  76 | mburchett12@blinklist.com         | Female
+  42 | Casandra   | Mushawe               |  77 | cmushawe13@usnews.com             | Female
+  43 | Fidelia    | Awcoate               |  87 | fawcoate14@ftc.gov                | Female
+  47 | Joyann     | Scudder               |  14 | jscudder18@deviantart.com         | Female
+  48 | Allene     | Woollhead             |  21 | awoollhead19@adobe.com            | Female
+  51 | Ebonee     | Eighteen              |  69 | eeighteen1c@npr.org               | Female
+  56 | Wenonah    | Barratt               |  36 | wbarratt1h@theguardian.com        | Female
+  57 | Emera      | Smallbone             |  52 | esmallbone1i@last.fm              | Female
+  58 | Nettie     | Weeden                |   2 | nweeden1j@clickbank.net           | Female
+  59 | Kalindi    | Androsik              |  55 | kandrosik1k@printfriendly.com     | Female
+  62 | Rochella   | Drabble               |  15 | rdrabble1n@unc.edu                | Female
+  63 | Lura       | Kinloch               |  21 | lkinloch1o@jigsy.com              | Female
+  66 | Beryl      | Barnfield             |  69 | bbarnfield1r@ustream.tv           | Female
+  69 | Cherlyn    | Culwen                |   2 | cculwen1u@drupal.org              | Female
+  70 | Imelda     | Pattullo              |   8 | ipattullo1v@tinypic.com           | Female
+  73 | Noami      | Eustice               |  88 | neustice1y@comsenz.com            | Female
+  74 | Larine     | Dickenson             |  42 | ldickenson1z@sohu.com             | Female
+  75 | Tabina     | Senter                |  27 | tsenter20@miitbeian.gov.cn        | Female
+  76 | Jaquith    | Slessor               |  90 | jslessor21@wix.com                | Female
+  80 | Maureene   | Legges                |  29 | mlegges25@infoseek.co.jp          | Female
+  83 | Gwyn       | Gusney                |  98 | ggusney28@sciencedaily.com        | Female
+  84 | Ilyse      | McPhaden              |  17 | imcphaden29@mashable.com          | Female
+  85 | Bianca     | Smorthwaite           |   5 | bsmorthwaite2a@oaic.gov.au        | Female
+  89 | Annabella  | Stormont              |  96 | astormont2e@51.la                 | Female
+
+
+  employee=# SELECT * FROM details WHERE first_name='Hasina';
+ id | first_name | last_name | age |      email       | gender
+----+------------+-----------+-----+------------------+--------
+  2 | Hasina     | Hasina    |  24 | hasina@gmail.com | Female
+(1 row)
+
+
+
+employee=# SELECT * FROM details WHERE country='China' AND (gender='Male' OR gender='Female') ORDER BY name ASC;
+    name    | country |             email             | gender |        department        |  salary
+------------+---------+-------------------------------+--------+--------------------------+-----------
+ Adara      | China   | aadrienne4t@usa.gov           | Female | Training                 | 117756.57
+ Aldwin     | China   | abumpas83@dyndns.org          | Male   | Engineering              |  41318.52
+ Alice      | China   | ahuntingford6@google.co.uk    | Female | Accounting               |  42152.71
+ Allyce     | China   | aswinnertonk@state.tx.us      | Female | Sales                    |  56646.13
+ Alva       | China   | amitkcov2t@jimdo.com          | Male   | Research and Development |  26458.10
+ Andy       | China   | agrederde@apache.org          | Male   | Human Resources          | 105239.39
+ Annabella  | China   | ayouniecy@spiegel.de          | Female | Engineering              |  34763.20
+ Baldwin    | China   | bmusprat2@alexa.com           | Male   | Research and Development |  69411.94
+ Belinda    | China   | bmcgarvey2s@google.co.jp      | Female | Services                 |  31668.18
+ Brodie     | China   | balldreadx@wordpress.com      | Male   | Product Management       |  62685.87
+ Camala     | China   | cfridlington48@nhs.uk         | Female | Business Development     |  60611.62
+ Carine     | China   | calderson3l@diigo.com         | Female | Business Development     | 110330.77
+ Carleton   | China   | cmussington6s@uiuc.edu        | Male   | Human Resources          |  79177.07
+ Cinnamon   | China   | cmafhamba@dion.ne.jp          | Female | Research and Development |  13738.07
+
+
+LIMIT
+-----
+employee=# SELECT * FROM details WHERE department='Human Resources' ORDER BY name LIMIT 20;
+   name    |   country   |             email              |   gender    |   department    |  salary
+-----------+-------------+--------------------------------+-------------+-----------------+-----------
+ Amandie   | Pitcairn    | alawn49@studiopress.com        | Female      | Human Resources |  80757.78
+ Amata     | Philippines | aeggledn@google.fr             | Female      | Human Resources |  82071.01
+ Andy      | China       | agrederde@apache.org           | Male        | Human Resources | 105239.39
+ Bald      | China       | bbackes6o@cornell.edu          | Agender     | Human Resources |  87779.96
+ Carleton  | China       | cmussington6s@uiuc.edu         | Male        | Human Resources |  79177.07
+ Casey     | Brazil      | comannion2p@comsenz.com        | Male        | Human Resources | 148625.69
+ Conny     | Portugal    | cleydon2j@wix.com              | Male        | Human Resources |  37516.75
+ Corrianne | Philippines | clidgett8x@smugmug.com         | Female      | Human Resources |  63010.64
+ Daniela   | Venezuela   | dsawyers78@qq.com              | Female      | Human Resources |  98588.58
+ Edi       | Lithuania   | epennino2x@amazonaws.com       | Female      | Human Resources |  75952.27
+ Elden     | Netherlands | emaben1k@ca.gov                | Male        | Human Resources |  65118.04
+ Emmye     | Philippines | ehamshere1x@walmart.com        | Genderfluid | Human Resources | 133735.13
+ Fairleigh | France      | ffevierc2@seattletimes.com     | Male        | Human Resources |  30940.38
+ Ferdinand | Poland      | fwasielewskiap@behance.net     | Male        | Human Resources |  74668.07
+ Genevra   | Philippines | gsalvadoridb@amazon.com        | Female      | Human Resources |  13490.42
+ Gerry     | China       | gpirot42@shop-pro.jp           | Bigender    | Human Resources |  61428.29
+ Kathryne  | China       | kmcmanus24@blogs.com           | Female      | Human Resources |  93780.44
+ Kora      | Japan       | kschwandermannz@eventbrite.com | Female      | Human Resources |  88294.84
+ Lavina    | China       | llinne4c@telegraph.co.uk       | Female      | Human Resources |  47600.67
+ Marco     | Indonesia   | mcliff8p@ask.com               | Male        | Human Resources |  66695.72
+(20 rows)
+
+OFFSET - SKIP THE ROWS
+----------------------
+
+employee=# SELECT * FROM details OFFSET 10 LIMIT 5;
+   name   |  country  |           email           |   gender    |        department        |  salary
+----------+-----------+---------------------------+-------------+--------------------------+-----------
+ Elsy     | Thailand  | esharrama@earthlink.net   | Female      | Services                 | 141920.42
+ Tillie   | Macedonia | tstumpb@qq.com            | Non-binary  | Legal                    | 111768.02
+ Giuseppe | Mexico    | gmcgarrahanc@freewebs.com | Genderfluid | Services                 | 104016.11
+ Pren     | Brazil    | pmullarkeyd@live.com      | Male        | Sales                    | 116056.25
+ Ennis    | Vietnam   | egammette@princeton.edu   | Male        | Research and Development | 124704.37
+(5 rows)
