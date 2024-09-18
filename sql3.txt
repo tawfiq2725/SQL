@@ -1,0 +1,174 @@
+employee=# SELECT * FROM details OFFSET 5 FETCH FIRST 10 ROW ONLY;
+   name   |  country  |           email            |   gender    |        department        |  salary
+----------+-----------+----------------------------+-------------+--------------------------+-----------
+ Merill   | Peru      | manfrey5@webnode.com       | Male        | Business Development     | 101931.53
+ Alice    | China     | ahuntingford6@google.co.uk | Female      | Accounting               |  42152.71
+ Harland  | Kosovo    | hcoolson7@hatena.ne.jp     | Male        | Legal                    |  63219.68
+ Dita     | Brazil    | dridde8@qq.com             | Female      | Research and Development |  97540.36
+ Muhammad | Portugal  | mhasted9@github.com        | Male        | Engineering              |  68977.16
+ Elsy     | Thailand  | esharrama@earthlink.net    | Female      | Services                 | 141920.42
+ Tillie   | Macedonia | tstumpb@qq.com             | Non-binary  | Legal                    | 111768.02
+ Giuseppe | Mexico    | gmcgarrahanc@freewebs.com  | Genderfluid | Services                 | 104016.11
+ Pren     | Brazil    | pmullarkeyd@live.com       | Male        | Sales                    | 116056.25
+ Ennis    | Vietnam   | egammette@princeton.edu    | Male        | Research and Development | 124704.37
+(10 rows)
+
+
+IN - KEYWORD
+------------
+
+The IN keyword in SQL is used to filter the result set based on whether a column's value matches any value in a specified list. It simplifies multiple OR conditions and makes queries more readable.
+
+employee=# SELECT * FROM details WHERE country IN ('China','Brazil');
+    name    | country |              email              |   gender    |        department        |  salary
+------------+---------+---------------------------------+-------------+--------------------------+-----------
+ Baldwin    | China   | bmusprat2@alexa.com             | Male        | Research and Development |  69411.94
+ Alice      | China   | ahuntingford6@google.co.uk      | Female      | Accounting               |  42152.71
+ Dita       | Brazil  | dridde8@qq.com                  | Female      | Research and Development |  97540.36
+ Pren       | Brazil  | pmullarkeyd@live.com            | Male        | Sales                    | 116056.25
+ Allyce     | China   | aswinnertonk@state.tx.us        | Female      | Sales                    |  56646.13
+ Denis      | China   | dtrubshaweq@bing.com            | Male        | Accounting               |  36316.01
+ Sheridan   | China   | slustyt@webs.com                | Male        | Support                  |  85512.14
+ Julita     | China   | jolanderw@cornell.edu           | Female      | Accounting               |  50807.30
+ Brodie     | China   | balldreadx@wordpress.com        | Male        | Product Management       |  62685.87
+ Sheryl     | Brazil  | sitzik12@studiopress.com        | Female      | Marketing                | 128378.08
+ Myrta      | China   | mburditt1b@narod.ru             | Female      | Legal                    | 149206.26
+ Major      | China   | mjonah1v@hatena.ne.jp           | Male        | Research and Development |  86430.52
+ Tonie      | China   | tchaise1w@rakuten.co.jp         | Female      | Business Development     |  19192.30
+ Yoshiko    | China   | ybeaver21@feedburner.com        | Female      | Accounting               |  97539.62
+ Ernst      | Brazil  | emunson22@census.gov            | Male        | Business Development     |  75642.79
+
+
+BETWEEN
+-------
+The BETWEEN keyword in SQL is used to filter records within a specific range of values. It is commonly used with numerical, date, or text data types to select rows where the value of a column falls between two specified values (inclusive of the boundary values).
+
+
+employee=# SELECT * FROM details WHERE salary BETWEEN 10000 AND 30000;
+    name    |        country        |              email               |   gender    |        department        |  salary
+------------+-----------------------+----------------------------------+-------------+--------------------------+----------
+ Morgen     | Poland                | mworsell3@nhs.uk                 | Female      | Support                  | 19187.31
+ Leo        | South Africa          | lwhitewoodn@hexun.com            | Male        | Services                 | 10396.79
+ Marijo     | Indonesia             | mtaplin15@cnn.com                | Female      | Business Development     | 22206.36
+ Ellene     | Indonesia             | etills1a@sbwire.com              | Female      | Accounting               | 11995.38
+ Howard     | Russia                | hscriviner1n@is.gd               | Male        | Services                 | 18315.26
+ Arabele    | Canada                | aarnke1o@washington.edu          | Female      | Marketing                | 15470.99
+ Georges    | Russia                | gcasine1p@hatena.ne.jp           | Male        | Legal                    | 26527.21
+ Sonny      | Russia                | sdauney1s@fema.gov               | Male        | Marketing                | 18456.94
+ Shannon    | Canada                | sfleckness1t@columbia.edu        | Male        | Services                 | 23239.77
+ Tonie      | China                 | tchaise1w@rakuten.co.jp          | Female      | Business Development     | 19192.30
+ Killian    | Colombia              | knoulton20@theatlantic.com       | Male        | Product Management       | 20382.62
+ Almire     | Bolivia               | acolthurst2a@wix.com             | Genderqueer | Engineering              | 29252.29
+ Dunc       | Indonesia             | dbacon2b@mapy.cz                 | Non-binary  | Support                  | 22611.51
+ Virge      | Palestinian Territory | vbrittin2e@ocn.ne.jp             | Male        | Legal                    | 19358.59
+ Lin        | Kenya                 | lcostin2g@go.com                 | Male        | Services                 | 17062.37
+ Alva       | China                 | amitkcov2t@jimdo.com             | Male        | Research and Development | 26458.10
+ Weber      | France                | wgartan31@wsj.com                | Male        | Marketing                | 20496.61
+ Eugene     | Indonesia             | edemico36@desdev.cn              | Male        | Support                  | 20952.47
+ Valene     | Panama                | vrubanenko3v@squarespace.com     | Genderfluid | Legal                    | 19228.36
+ Slade      | United States         | ssorrill3w@macromedia.com        | Male        | Legal                    | 16594.31
+ Margret    | Indonesia             | mocarrol4d@stanford.edu          | Female      | Training                 | 15893.89
+
+
+LIKE & ILIKE
+------------
+In SQL, the LIKE and ILIKE keywords are used for pattern matching in string queries. These allow you to search for values that match a specific pattern in a column, using wildcard characters.
+
+LIKE:
+-----
+The LIKE keyword performs case-sensitive pattern matching.
+You can use wildcards to create flexible patterns:
+%: Matches zero or more characters.
+_: Matches exactly one character.
+
+
+ILIKE:
+------
+The ILIKE keyword is similar to LIKE, but it performs case-insensitive pattern matching. It is specific to PostgreSQL and some other databases.
+
+
+
+employee=# SELECT * FROM details WHERE email LIKE '%@amazon.com';
+  name   |   country   |          email          | gender |      department      |  salary
+---------+-------------+-------------------------+--------+----------------------+----------
+ Mindy   | China       | mwilshaw47@amazon.com   | Female | Business Development | 47939.27
+ Pren    | Indonesia   | psibson62@amazon.com    | Male   | Human Resources      | 91663.78
+ Genevra | Philippines | gsalvadoridb@amazon.com | Female | Human Resources      | 13490.42
+(3 rows)
+
+
+employee=# SELECT * FROM details WHERE email LIKE '________a@%';
+   name   |   country   |            email            | gender |        department        |  salary
+----------+-------------+-----------------------------+--------+--------------------------+-----------
+ Elsy     | Thailand    | esharrama@earthlink.net     | Female | Services                 | 141920.42
+ Darb     | Haiti       | ddruitt3a@wikipedia.org     | Female | Services                 |  87359.50
+ Paton    | Philippines | pfenkel7a@microsoft.com     | Male   | Research and Development |  88390.37
+ Crawford | Italy       | csprade8a@printfriendly.com | Male   | Legal                    |  31431.54
+ Cinnamon | China       | cmafhamba@dion.ne.jp        | Female | Research and Development |  13738.07
+ Daven    | Bhutan      | doldredda@prnewswire.com    | Male   | Training                 | 145540.92
+(6 rows)
+
+
+
+employee=# SELECT * FROM details WHERE country LIKE 'D%';
+   name   |      country       |             email              |  gender  |      department      |  salary
+----------+--------------------+--------------------------------+----------+----------------------+----------
+ Philbert | Dominican Republic | pdrance5r@jiathis.com          | Bigender | Engineering          | 61152.89
+ Jermaine | Dominican Republic | jmaylamai@wp.com               | Male     | Sales                | 55514.91
+ Toby     | Denmark            | tbalstoned3@huffingtonpost.com | Male     | Business Development | 63994.32
+(3 rows)
+
+
+
+employee=# SELECT * FROM details WHERE country ILIKE 'indi%';
+  name  | country |      email       | gender |     department     |  salary
+--------+---------+------------------+--------+--------------------+-----------
+ Tawfiq | India   | tawfiq@gmail.com | Male   | Software Developer | 500000.00
+(1 row)
+
+
+GROUP BY
+---------
+The GROUP BY clause in SQL is used to arrange identical data into groups. It is commonly used with aggregate functions like COUNT(), SUM(), AVG(), MAX(), or MIN() to group the result set by one or more columns and perform calculations on each group.
+
+
+employee=# SELECT country,COUNT(*) FROM details GROUP BY country;
+         country          | count
+--------------------------+-------
+ Bangladesh               |     4
+ Indonesia                |    52
+ Italy                    |     1
+ Mayotte                  |     1
+ Venezuela                |     5
+ Luxembourg               |     1
+ Czech Republic           |     7
+ Sweden                   |    11
+ United Kingdom           |     2
+ Uganda                   |     1
+
+
+employee=# SELECT country,COUNT(*) FROM details GROUP BY country ORDER BY country ASC;
+         country          | count
+--------------------------+-------
+ Afghanistan              |     2
+ Albania                  |     2
+ Angola                   |     1
+ Argentina                |     3
+ Armenia                  |     1
+ Bangladesh               |     4
+ Belarus                  |     1
+ Benin                    |     1
+ Bhutan                   |     1
+
+
+HAVING
+------
+
+The HAVING clause in SQL is used to filter records that are grouped by the GROUP BY clause based on a condition. It’s similar to the WHERE clause, but WHERE cannot be used with aggregate functions, while HAVING can.
+
+employee=# SELECT country,COUNT(*) FROM details GROUP BY country HAVING COUNT(*)>50;
+  country  | count
+-----------+-------
+ Indonesia |    52
+ China     |    80
+(2 rows)
