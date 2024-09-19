@@ -1,0 +1,205 @@
+AGGREGATION - MAX , MIN , AVG
+-----------------------------
+
+MAX
+---
+The MAX keyword in SQL is an aggregate function that returns the maximum value in a set of values. It is commonly used to find the largest number in a column, whether it's numeric, date, or even string data (where it finds the maximum based on alphabetical order).
+
+employee=# SELECT MAX(price) FROM carinfo;
+   max
+---------
+ 8997830
+(1 row)
+
+employee=# SELECT MAX(salary) FROM details;
+    max
+-----------
+ 500000.00
+(1 row)
+
+
+employee=# SELECT MAX(salary) FROM details WHERE department='Human Resources';
+    max
+-----------
+ 148625.69
+(1 row)
+
+
+MAX returns the largest value in a column.
+It can be used with numeric, date, or string data.
+It’s often combined with GROUP BY to find the maximum values within groups.
+
+
+MIN
+----
+The MIN keyword in SQL is an aggregate function that returns the minimum (smallest) value in a set of values. It works similarly to the MAX function but instead returns the smallest value.
+
+employee=# SELECT MIN(price) FROM carinfo;
+   min
+---------
+ 3012018
+(1 row)
+
+employee=# SELECT MIN(salary) FROM details;
+   min
+----------
+ 10035.70
+(1 row)
+
+
+AVG
+----
+
+The AVG keyword in SQL is an aggregate function that returns the average value of a numeric column. It calculates the sum of all values and divides it by the count of those values.
+
+employee=# SELECT AVG(price) FROM carinfo;
+         avg
+----------------------
+ 5960206.651000000000
+(1 row)
+
+
+sum
+----
+
+The SUM keyword in SQL is an aggregate function that returns the total sum of a numeric column. It adds up all the values in the specified column and returns the result.
+
+employee=# SELECT SUM(price) FROM carinfo;
+    sum
+------------
+ 5960206651
+(1 row)
+
+employee=# SELECT name,SUM(price) FROM carinfo GROUP BY name;
+     name      |    sum
+---------------+-----------
+ GMC           | 249376665
+ Maybach       |  24465820
+ Lincoln       | 115163219
+ Honda         | 163123427
+ Ram           |  11519722
+ Daewoo        |   7934891
+ Spyker        |   7574991
+ Ford          | 524003932
+ Scion         |  31549502
+ Maserati      |  38464978
+ Dodge         | 266811333
+ Chevrolet     | 489895087
+ Saturn        |  38827983
+ Infiniti      |  59050294
+ MINI          |  16547621
+ Bentley       |  30614473
+
+
+
+ROUND
+-----
+
+employee=# SELECT id,name,model,price,ROUND(price * .10,2),ROUND(price - (price * .10),2) FROM carinfo;
+  id  |     name      |          model          |  price  |   round   |   round
+------+---------------+-------------------------+---------+-----------+------------
+    1 | Chevrolet     | 2500                    | 5535076 | 553507.60 | 4981568.40
+    2 | Volkswagen    | Passat                  | 3442422 | 344242.20 | 3098179.80
+    3 | Audi          | 100                     | 4128885 | 412888.50 | 3715996.50
+    4 | Dodge         | Caravan                 | 8820935 | 882093.50 | 7938841.50
+    5 | Jaguar        | X-Type                  | 6471011 | 647101.10 | 5823909.90
+    6 | Toyota        | Camry                   | 8355071 | 835507.10 | 7519563.90
+    7 | Mercedes-Benz | SLK-Class               | 3045616 | 304561.60 | 2741054.40
+
+
+ALIAS
+-----
+It acuallay provide a valid name for custom column
+
+example
+-------
+
+BEFORE
+------
+employee=# SELECT id,name,model,price,ROUND(price * .10,2),ROUND(price - (price * .10)) FROM carinfo;
+  id  |     name      |          model          |  price  |   round   |  round
+------+---------------+-------------------------+---------+-----------+---------
+    1 | Chevrolet     | 2500                    | 5535076 | 553507.60 | 4981568
+    2 | Volkswagen    | Passat                  | 3442422 | 344242.20 | 3098180
+    3 | Audi          | 100                     | 4128885 | 412888.50 | 3715997
+    4 | Dodge         | Caravan                 | 8820935 | 882093.50 | 7938842
+    5 | Jaguar        | X-Type                  | 6471011 | 647101.10 | 5823910
+    6 | Toyota        | Camry                   | 8355071 | 835507.10 | 7519564
+    7 | Mercedes-Benz | SLK-Class               | 3045616 | 304561.60 | 2741054
+    8 | Volkswagen    | GTI                     | 3666192 | 366619.20 | 3299573
+    9 | Ford          | Courier                 | 4047301 | 404730.10 | 3642571
+   10 | Chevrolet     | Camaro                  | 4931692 | 493169.20 | 4438523
+
+
+AFTER
+------
+employee=# SELECT id,name,model,price AS Original_Price,ROUND(price*.10,2) AS Discount_Rate,ROUND(price -(price*.10),2) AS Discount_Price FROM carinfo;
+  id  |     name      |          model          | original_price | discount_rate | discount_price
+------+---------------+-------------------------+----------------+---------------+----------------
+    1 | Chevrolet     | 2500                    |        5535076 |     553507.60 |     4981568.40
+    2 | Volkswagen    | Passat                  |        3442422 |     344242.20 |     3098179.80
+    3 | Audi          | 100                     |        4128885 |     412888.50 |     3715996.50
+    4 | Dodge         | Caravan                 |        8820935 |     882093.50 |     7938841.50
+    5 | Jaguar        | X-Type                  |        6471011 |     647101.10 |     5823909.90
+    6 | Toyota        | Camry                   |        8355071 |     835507.10 |     7519563.90
+    7 | Mercedes-Benz | SLK-Class               |        3045616 |     304561.60 |     2741054.40
+    8 | Volkswagen    | GTI                     |        3666192 |     366619.20 |     3299572.80
+    9 | Ford          | Courier                 |        4047301 |     404730.10 |     3642570.90
+   10 | Chevrolet     | Camaro                  |        4931692 |     493169.20 |     4438522.80
+
+
+COALESCE
+--------
+The COALESCE function in SQL is used to return the first non-NULL value in a list of expressions. It's often used to handle NULL values in queries, ensuring that a default value is returned when encountering a NULL.
+
+
+employee=# SELECT name , COALESCE(email,'Not Provided') FROM workers;
+     name     |              coalesce
+--------------+------------------------------------
+ Hana         | Not Provided
+ Edithe       | Not Provided
+ Adelaide     | alindl2@nydailynews.com
+ Rawley       | rdahlen3@skyrock.com
+ Neda         | Not Provided
+ Verena       | Not Provided
+ Bellanca     | bmowsdell6@go.com
+
+
+ PRIMARY KEYWORD
+ ----------------
+
+A primary key is a column (or a set of columns) in a database table that uniquely identifies each row in that table. It is a key concept in relational database design and ensures that each record in the table can be uniquely identified. The primary key must contain unique values and cannot contain NULL values.
+
+Characteristics of a Primary Key:
+---------------------------------
+Uniqueness: Every value in the primary key column(s) must be unique across the table, ensuring no duplicate rows.
+Not Null: The primary key column(s) cannot contain NULL values.
+One Primary Key Per Table: Each table can have only one primary key, but the primary key can consist of a single column or multiple columns (called a composite key).
+Immutable: The values in the primary key column(s) should not change frequently
+
+
+ ADDING A PRIMARY KEY
+ --------------------
+ employee=# ALTER TABLE persons ADD PRIMARY KEY(id);
+ALTER TABLE
+
+employee=# \d persons
+                     Table "public.persons"
+ Column |         Type          | Collation | Nullable | Default
+--------+-----------------------+-----------+----------+---------
+ id     | integer               |           | not null |
+ name   | character varying(50) |           |          |
+ gender | character varying(50) |           |          |
+ email  | character varying(50) |           |          |
+ dob    | date                  |           |          |
+ city   | character varying(50) |           |          |
+Indexes:
+    "persons_pkey" PRIMARY KEY, btree (id)
+
+
+DELETE A PRIMARY KEY
+---------------------
+employee=# ALTER TABLE persons DROP CONSTRAINT persons_pkey;
+ALTER TABLE
+
+

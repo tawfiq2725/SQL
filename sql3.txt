@@ -172,3 +172,5 @@ employee=# SELECT country,COUNT(*) FROM details GROUP BY country HAVING COUNT(*)
  Indonesia |    52
  China     |    80
 (2 rows)
+
+
