@@ -1,0 +1,133 @@
+UNIQUE KEY
+----------
+A UNIQUE key in SQL is a constraint that ensures that all the values in a column (or a combination of columns) are unique across the entire table, meaning no two rows can have the same value in the column(s) where the UNIQUE key is applied. However, unlike a PRIMARY key, a UNIQUE key allows for NULL values, but only one NULL value per column (in most databases).
+
+
+employee=# ALTER TABLE persons ADD CONSTRAINT unique_emails UNIQUE(email);
+ALTER TABLE
+employee=# \d persons
+                     Table "public.persons"
+ Column |         Type          | Collation | Nullable | Default
+--------+-----------------------+-----------+----------+---------
+ id     | integer               |           | not null |
+ name   | character varying(50) |           |          |
+ gender | character varying(50) |           |          |
+ email  | character varying(50) |           |          |
+ dob    | date                  |           |          |
+ city   | character varying(50) |           |          |
+Indexes:
+    "persons_pkey" PRIMARY KEY, btree (id)
+    "unique_emails" UNIQUE CONSTRAINT, btree (email)
+
+
+What is an Index in SQL?
+------------------------
+An index in SQL is a database object used to enhance the speed of data retrieval operations on a table. It allows the database to find and access the data more efficiently, similar to the index in a book that helps locate specific content without reading through the entire book.
+
+
+Indexes:
+An index is a database structure that helps improve the performance of data retrieval operations by allowing faster access to rows in a table based on the values of one or more columns.
+Indexes are primarily used to speed up SELECT queries and sometimes JOIN operations, ORDER BY, and GROUP BY clauses.
+
+
+Types of Indexes in SQL:
+------------------------
+Non-clustered Index:
+--------------------
+This is the most common type of index.
+A non-clustered index creates a separate structure that points to the data in the table, but the data in the table is not stored in the order of the index.
+You can create multiple non-clustered indexes on a table.
+
+Clustered Index:
+----------------
+A clustered index sorts the actual data rows of the table based on the indexed column.
+There can only be one clustered index per table because the data can only be sorted one way.
+The table rows are physically reordered to match the index order.
+Clustered indexes are typically created on the primary key by default.
+Think of a clustered index as the actual sorted book, while a non-clustered index is more like the index at the back of the book that helps you locate topics.
+
+
+
+CHECK CONSTRAINT
+-----------------
+
+
+
+
+employee=# \d newdata
+                     Table "public.newdata"
+ Column |         Type          | Collation | Nullable | Default
+--------+-----------------------+-----------+----------+---------
+ id     | integer               |           | not null |
+ name   | character varying(50) |           |          |
+ dob    | date                  |           |          |
+ email  | character varying(50) |           |          |
+ gender | character varying(50) |           |          |
+ salary | integer               |           |          |
+Indexes:
+    "newdata_pkey" PRIMARY KEY, btree (id)
+    "unique_emails_new" UNIQUE CONSTRAINT, btree (email)
+Check constraints:
+    "gender_check" CHECK (gender::text = 'Male'::text OR gender::text = 'Female'::text)
+
+
+
+employee=# INSERT INTO newdata (id,name,dob,email,gender,salary) VALUES(1001,'Tawfiq','2003-10-25','tawfiqsirajudeen@gmail.com','test',30000);
+ERROR:  new row for relation "newdata" violates check constraint "gender_check"
+DETAIL:  Failing row contains (1001, Tawfiq, 2003-10-25, tawfiqsirajudeen@gmail.com, test, 30000).
+employee=# INSERT INTO newdata (id,name,dob,email,gender,salary) VALUES(1001,'Tawfiq','2003-10-25','tawfiqsirajudeen@gmail.com','Male',30000);
+INSERT 0 1
+
+
+UPDATE 
+------
+
+In SQL, the UPDATE statement is used to modify existing records in a table. It allows you to change values in one or more columns of a table based on certain conditions. If no condition is specified, the UPDATE statement will modify all rows in the table.
+
+employee=# UPDATE newdata SET email='rafferty@gmail.com' WHERE id=10;
+UPDATE 1
+
+employee=# SELECT * FROM newdata WHERE id=10;
+ id |   name   |    dob     |       email        | gender | salary
+----+----------+------------+--------------------+--------+--------
+ 10 | Rafferty | 1993-12-22 | rafferty@gmail.com | Male   |  42202
+(1 row)
+
+
+ON CONFLICT DO NOTHING
+----------------------
+
+employee=# INSERT INTO newdata (id,name,dob,email,gender,salary)
+employee-# VALUES (33,'Richmond','2010-06-08','rduplanw@thetimes.co.uk','Male',38286)
+employee-# ON CONFLICT (id) DO NOTHING;
+INSERT 0 0
+employee=# INSERT INTO newdata (id,name,dob,email,gender,salary)
+employee-# VALUES (33,'Richmond','2010-06-08','rduplanw@thetimes.co.uk','Male',38286)
+employee-# ON CONFLICT (name) DO NOTHING;
+ERROR:  there is no unique or exclusion constraint matching the ON CONFLICT specification
+employee=#
+
+
+UPSERT
+------
+
+BEFORE
+------
+ 13 | Marshal      | 1992-11-27 |                                        | Male   |  85734
+
+
+employee=# INSERT INTO newdata (id,name,dob,email,gender,salary) VALUES (13,'Marshal','1992-11-27','marshal@gmail.com','Male',85734)
+employee-# ON CONFLICT(id) DO UPDATE SET email=EXCLUDED.email;
+INSERT 0 1
+
+
+AFTER
+-----
+employee=# INSERT INTO newdata (id,name,dob,email,gender,salary) VALUES (1003,'TEST','1992-11-27','TEST@gmail.com','Male',85734)
+employee-# ON CONFLICT(id) DO UPDATE SET email=EXCLUDED.email;
+INSERT 0 1
+employee=# SELECT * FROM newdata WHERE id=1003;
+  id  | name |    dob     |     email      | gender | salary
+------+------+------------+----------------+--------+--------
+ 1003 | TEST | 1992-11-27 | TEST@gmail.com | Male   |  85734
+(1 row)

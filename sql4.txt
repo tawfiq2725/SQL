@@ -164,6 +164,10 @@ employee=# SELECT name , COALESCE(email,'Not Provided') FROM workers;
  Verena       | Not Provided
  Bellanca     | bmowsdell6@go.com
 
+Constraints:
+------------
+A constraint is a rule applied to a column (or a set of columns) that enforces certain conditions on the data to ensure its integrity, correctness, and validity. Constraints restrict what kind of data can be inserted into a column.
+
 
  PRIMARY KEYWORD
  ----------------
@@ -201,5 +205,6 @@ DELETE A PRIMARY KEY
 ---------------------
 employee=# ALTER TABLE persons DROP CONSTRAINT persons_pkey;
 ALTER TABLE
+
 
 
