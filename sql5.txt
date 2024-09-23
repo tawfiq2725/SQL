@@ -131,3 +131,10 @@ employee=# SELECT * FROM newdata WHERE id=1003;
 ------+------+------------+----------------+--------+--------
  1003 | TEST | 1992-11-27 | TEST@gmail.com | Male   |  85734
 (1 row)
+
+
+
+ALTER TABLE student ADD CONSTRAINT fk_course_enroll FORIEN KEY (course_id) REFERENCES course(course_id)
+ALTER TABLE student ADD PRIMARY KEY(ID)
+ALTER TABLE student ADD UNIQUE(email)
+ALTER TABLE student ADD CHECK (gender='MALE' OR gender='FEMALE')

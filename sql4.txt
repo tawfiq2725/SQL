@@ -208,3 +208,7 @@ ALTER TABLE
 
 
 
+SELECT * FROM student JOIN car ON student.car_id=car.id;
+SELECT * FROM student LEFT JOIN car ON student.car_id=car.id;
+SELECT * FROM student RIGHT JOIN car ON student.car_id=car.id;
+SELECT * FROM student FULL JOIN car ON student.car_id=car.id;
